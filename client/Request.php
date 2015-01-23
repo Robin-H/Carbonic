@@ -6,8 +6,8 @@ class Request
     private static $config;
 
     private $controller;
-    private $method;
-    private $args = array(array());
+    private $method = 'main';
+    private $args = array();
 
     public function __construct($config)
     {
@@ -16,7 +16,6 @@ class Request
         self::$config = $config;
 
         $this->setController();
-        $this->setMethod();
     }
 
     public function process()
@@ -25,22 +24,34 @@ class Request
             call_user_func_array(array($this->controller, $this->method), $this->args);
         }
         else {
-            throw new Exception("{$this->controller}::{$this->method} was not found");
+            throw new Exception("{$this->controller} was not found");
         }
     }
 
     private function setController()
     {
-        // Default to 'Page'
-        $this->controller = 'PageController';
+        // Get default from config
+        $this->controller = self::$config->getDefaultController();
 
+        if (!empty(self::$url)) {
+            $urlChunks = explode("/", self::$url);
+            if (sizeof($urlChunks) > 0) {
+                $controller = ucfirst(array_shift($urlChunks)) . 'Controller';
 
+                if (class_exists($controller)) {
+                    $this->controller = $controller;
+                    $this->args = $urlChunks;
+                }
+                else {
+                    $this->args = explode("/", self::$url);
+                }
+            }
+        }
     }
 
-    private function setMethod()
+    private function setMethod($method)
     {
-        // Default to 'main'
-        $this->method = 'main';
+        $this->method = $method;
     }
 
     public static function getURL()

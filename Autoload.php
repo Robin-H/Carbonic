@@ -24,10 +24,6 @@ class Autoload
         if (isset(self::$classLocations[$className])) {
             include_once(Request::getConfig()->getRoot() . self::$classLocations[$className]);
         }
-        else {
-            // Class could not be found
-            throw new Exception("Could not load $className");
-        }
     }
 
     private static function findFileForClass($className)

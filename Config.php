@@ -10,6 +10,8 @@ class Config
     private $dbPassword;
     private $dbName;
 
+    private $defaultController;
+
     public function __construct($root)
     {
         $this->root = $root;
@@ -19,6 +21,8 @@ class Config
         $this->dbUsername = '';
         $this->dbPassword = '';
         $this->dbName = '';
+
+        $this->defaultController = 'PageController';
     }
 
     private function setAutoloader($autoloader = null)
@@ -34,6 +38,11 @@ class Config
     public function getRoot()
     {
         return $this->root;
+    }
+
+    public function getDefaultController()
+    {
+        return $this->defaultController;
     }
 }
 
