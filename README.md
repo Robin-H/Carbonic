@@ -4,15 +4,7 @@ Simple PHP framework
 Use it to your likings, I found other frameworks to be usually blown way out of proportions or have extremely complicated OOP 'implementations'.
 
 Structure?
-root
-|-app
-|--controller
-|--model
-|--view
-|-cache
-|-css
-|-carbonic (link my awesome github repo or don't... if you don't thrust my coding skills)
-|-js
+Create your project folder and add the folders: app, cache & carbonic. Link carbonic to this repo (or don't) and build inside 'app' using model / view / controller folders.
 
 Requirements? A recent version of PHP (5.3+), the model uses PDO and MySQL. Maybe I'll add other DB engines as a possibility later.
 
