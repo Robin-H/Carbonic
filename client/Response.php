@@ -42,8 +42,7 @@ class Response
     public static function parse($__file, $vars)
     {
         extract($vars);
-        //include(self::parseFilePath($__file));
-        include($__file);
+        include(self::parseFilePath($__file));
     }
 
     public static function returnParsed($file, $vars)
@@ -53,7 +52,6 @@ class Response
         return ob_get_clean();
     }
 
-    /*
     private static function parseFilePath($filePath) 
     {
         // Path from filePath.
@@ -64,7 +62,7 @@ class Response
         else {
             return $filePath;
         }
-    }*/
+    }
 }
 
 ?>
