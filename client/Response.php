@@ -39,13 +39,13 @@ class Response
         readfile($fileURL);
     }
 
-    public static function parse($__file, $vars)
+    public static function parse($__file, $vars = array())
     {
         extract($vars);
         include(self::parseFilePath($__file));
     }
 
-    public static function returnParsed($file, $vars)
+    public static function returnParsed($file, $vars = array())
     {
         ob_start();
         self::parse($file, $vars);
