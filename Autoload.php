@@ -31,8 +31,8 @@ class Autoload
         $possibleClassLocations = array(
             '/app/controller/',
             '/app/model/',
-            '/carbon/client/',
-            '/carbon/'
+            '/carbonic/client/',
+            '/carbonic/'
         );
 
         $classFileName = $className  . '.php';

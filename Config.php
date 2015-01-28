@@ -28,7 +28,7 @@ class Config
     private function setAutoloader($autoloader = null)
     {
         if (!is_callable($autoloader)) {
-            include($this->root . '/carbon/Autoload.php');
+            include($this->root . '/carbonic/Autoload.php');
             $autoloader = array('Autoload', 'loadClass');
         }
 
