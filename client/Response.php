@@ -1,8 +1,9 @@
 <?php
 
+// @todo: add cache support
 class Response
 {
-    public function redirect($location, $timeout = 0, $status = null) 
+    public static function redirect($location, $timeout = 0, $status = null) 
     {
         if ($status) {
             if ($timeout > 0) {
@@ -22,8 +23,7 @@ class Response
         }
     }
 
-    // @todo: add cache support
-    public function download($fileURL, $filename = null)
+    public static function download($fileURL, $filename = null)
     {
         // No filename? Get it from $file
         if (empty($filename)) {
@@ -38,6 +38,33 @@ class Response
         
         readfile($fileURL);
     }
+
+    public static function parse($__file, $vars)
+    {
+        extract($vars);
+        //include(self::parseFilePath($__file));
+        include($__file);
+    }
+
+    public static function returnParsed($file, $vars)
+    {
+        ob_start();
+        self::parse($file, $vars);
+        return ob_get_clean();
+    }
+
+    /*
+    private static function parseFilePath($filePath) 
+    {
+        // Path from filePath.
+        if (mb_strrpos($filePath, '/') > 0) {
+            set_include_path(mb_substr($filePath, 0, mb_strrpos($filePath, '/') + 1));
+            return mb_substr($filePath, mb_strrpos($filePath, '/') + 1);
+        }
+        else {
+            return $filePath;
+        }
+    }*/
 }
 
 ?>

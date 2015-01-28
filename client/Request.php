@@ -40,6 +40,14 @@ class Request
 
                 if (class_exists($controller)) {
                     $this->controller = $controller;
+                    $method = isset($urlChunks[0]) ? $urlChunks[0] : null;
+
+                    // Call specific method directly?
+                    if ($this->setMethod($method)) {
+                        // Remove method from arguments
+                        array_shift($urlChunks);
+                    }
+
                     $this->args = $urlChunks;
                 }
                 else {
@@ -51,7 +59,12 @@ class Request
 
     private function setMethod($method)
     {
-        $this->method = $method;
+        if (method_exists($this->controller, $method)) {
+            $this->method = $method;
+            return true;
+        }
+
+        return false;
     }
 
     public static function getURL()
@@ -62,6 +75,21 @@ class Request
     public static function getConfig()
     {
         return self::$config;
+    }
+
+    public static function getPost($var)
+    {
+        return filter_input(INPUT_POST, $var);
+    }
+
+    public static function getGet($var)
+    {
+        return filter_input(INPUT_GET, $var);
+    }
+
+    public static function getCookie($var)
+    {
+        return filter_input(INPUT_COOKIE, $var);
     }
 }
 
