@@ -91,6 +91,11 @@ class Request
     {
         return filter_input(INPUT_COOKIE, $var);
     }
+
+    public static function processForm($key)
+    {
+        return self::getPost('formKey') == $key;
+    }
 }
 
 ?>
