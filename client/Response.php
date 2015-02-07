@@ -56,7 +56,7 @@ class Response
     {
         // Path from filePath.
         if (mb_strrpos($filePath, '/') > 0) {
-            set_include_path(mb_substr($filePath, 0, mb_strrpos($filePath, '/') + 1));
+            set_include_path(Request::getConfig()->getRoot() . '/' . mb_substr($filePath, 0, mb_strrpos($filePath, '/') + 1));
             return mb_substr($filePath, mb_strrpos($filePath, '/') + 1);
         }
         else {
