@@ -34,11 +34,11 @@ class Model
         $password = Request::getConfig()->getDBPassword();
         $name     = Request::getConfig()->getDBName();
 
-        $this->setPDO($name, $host, $username, $password);
+        $this->setPDO($type, $name, $host, $username, $password);
         $this->isDefaultPDO = true;
     }
 
-    protected function query($queryString, $params)
+    protected function query($queryString, $params = array())
     {
         // Make sure we have a working PDO connection
         $this->setDefaultPDO();
@@ -47,7 +47,7 @@ class Model
         $statement = $this->pdo->prepare($queryString, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         
         foreach ($params as $param => $value) {
-            $statement->bind(':' . $param, $value);
+            $statement->bindParam(':' . $param, $value);
         }
 
         if ($statement->execute()) {
@@ -59,7 +59,7 @@ class Model
                 $errorMessage = $errorMessage[2];
             }
             elseif (isset($errorMessage[1])) {
-                $errorMessage = "MySQL Error: " . $errorMessage[1]:
+                $errorMessage = "MySQL Error: " . $errorMessage[1];
             }
             else {
                 $errorMessage = "An error occurred with: $queryString";
