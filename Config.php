@@ -5,6 +5,7 @@ class Config
     private $root;
     private $autoloader;
 
+    private $dbType;
     private $dbHost;
     private $dbUsername;
     private $dbPassword;
@@ -17,10 +18,8 @@ class Config
         $this->root = $root;
         $this->setAutoloader();
 
-        $this->dbHost = 'localhost';
-        $this->dbUsername = '';
-        $this->dbPassword = '';
-        $this->dbName = '';
+        $this->dbType = 'sqlite';
+        $this->dbName = 'app.db';
 
         $this->defaultController = 'PageController';
     }
@@ -43,6 +42,31 @@ class Config
     public function getDefaultController()
     {
         return $this->defaultController;
+    }
+
+    public function getDBType()
+    {
+        return $this->dbType;
+    }
+
+    public function getDBHost()
+    {
+        return $this->dbHost;
+    }
+
+    public function getDBUsername()
+    {
+        return $this->dbUsername;
+    }
+
+    public function getDBPassword()
+    {
+        return $this->dbPassword;
+    }
+
+    public function getDBName()
+    {
+        return $this->dbName;
     }
 }
 

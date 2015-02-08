@@ -5,10 +5,20 @@ class Model
     private $pdo;
     private $isDefaultPDO = false;
 
-    final protected function setPDO($host, $username, $password, $name)
-    {
-        $dsn = 'mysql:dbname=' . $name . ';host=' . $host;
-        $this->pdo = new PDO($dsn, $username, $password);
+    final protected function setPDO($type, $name, $host, $username, $password)
+    {   
+        switch ($type) {
+            case 'mysql':
+                $dsn = 'mysql:dbname=' . $name . ';host=' . $host;
+                $this->pdo = new PDO($dsn, $username, $password);
+            break;
+
+            default:
+                $dsn = 'sqlite:' . Request::getConfig()->getRoot() . '/carbonic/db/' . $name;
+                $this->pdo = new PDO($dsn);
+            break;
+        }
+
         $this->isDefaultPDO = false;
     }
 
@@ -18,12 +28,13 @@ class Model
             return;
         }
 
+        $type     = Request::getConfig()->getDBType();
         $host     = Request::getConfig()->getDBHost();
         $username = Request::getConfig()->getDBUsername();
         $password = Request::getConfig()->getDBPassword();
         $name     = Request::getConfig()->getDBName();
 
-        $this->setPDO($host, $username, $password, $name);
+        $this->setPDO($name, $host, $username, $password);
         $this->isDefaultPDO = true;
     }
 
