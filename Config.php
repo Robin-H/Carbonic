@@ -10,6 +10,7 @@ class Config
     private $dbUsername;
     private $dbPassword;
     private $dbName;
+    private $tablePrefix;
 
     private $defaultController;
 
@@ -67,6 +68,11 @@ class Config
     public function getDBName()
     {
         return $this->dbName;
+    }
+
+    public function getTablePrefix()
+    {
+        return $this->tablePrefix;
     }
 }
 
